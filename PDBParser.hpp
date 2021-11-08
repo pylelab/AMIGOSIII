@@ -138,6 +138,8 @@ ModelUnit read_pdb_structure(const char *filename,
     map<char,string> chainIDmap;
     string filename_str=(string) filename;
     
+#ifndef REDI_PSTREAM_H_SEEN
+#else
     if (filename_str.length()>=18 &&
         filename_str.substr(filename_str.length()-18,18)=="-pdb-bundle.tar.gz")
     {
@@ -192,12 +194,15 @@ ModelUnit read_pdb_structure(const char *filename,
         PDBmap.clear();
         return pep;
     }
-    
+#endif 
 
     int use_stdin=(filename_str=="-");
     int use_pstream=0; // input is compressed
 
     ifstream fp;
+#ifndef REDI_PSTREAM_H_SEEN
+    ifstream fp_gz;
+#else
     redi::ipstream fp_gz; // if file is compressed
     if (filename_str.length()>=3 && 
         filename_str.substr(filename_str.length()-3,3)==".gz")
@@ -207,6 +212,7 @@ ModelUnit read_pdb_structure(const char *filename,
         use_pstream=1;
     }
     else
+#endif
     {
         fp.open(filename,ios::in); //ifstream fp(filename,ios::in);
     }
