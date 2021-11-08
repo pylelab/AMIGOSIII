@@ -1,10 +1,19 @@
 # AMIGOS III #
-Pseudo-torsion angle visualization and motif-based structure comparison of nucleic acids
+Pseudo-torsion angle visualization and motif-based structure comparison of
+nucleic acids
 
 ## Dependency ##
 AMIGOS III is a plugin to [PyMOL](https://pymol.org/) version 2.5 or later.
+It requires matplotlib and python3 to work.
 
-## Installation ##
+## Automated Installation ##
+If you use 64bit Windows, Linux or Mac, download the zip files for your
+operating system at 
+[Releases](https://github.com/pylelab/AMIGOSIII/releases)
+and install the zip file through the
+[PyMOL Plugin Manager](https://pymolwiki.org/index.php/Plugins)
+
+## Manual Installation ##
 AMIGOS III includes a C++ program ``NaTorsion``, which can be compiled by
 ```
 make
@@ -13,11 +22,16 @@ or
 ```
 g++ -O3 NaTorsion.cpp -o NaTorsion -static
 ```
-The "-static" flag should be removed on Mac OS, which does not support static executable.
+The "-static" flag should be removed on Mac OS, which does not support static
+executable.
 
-After the compilation is finished, compress the AMIGOIII folder as a zip file, and
-install the zip file as through the [PyMOL Plugin Manager](https://pymolwiki.org/index.php/Plugins)
+After the compilation is finished, compress the ``AMIGOIII/`` folder as a zip
+file, and install the zip file through the
+[PyMOL Plugin Manager](https://pymolwiki.org/index.php/Plugins).
+Alternatively, you can manually move the ``AMIGOIII/`` folder to the
+``pmg_tk/AMIGOSIII`` at your pymol installation path.
 
 ## Reference ##
 Morgan Shine, Chengxin Zhang, Anna Marie Pyle (2021)
-"AMIGOS III: Pseudo-torsion angle visualization and motif-based structure comparison of nucleic acids"
+"AMIGOS III: Pseudo-torsion angle visualization and motif-based structure
+comparison of nucleic acids"
