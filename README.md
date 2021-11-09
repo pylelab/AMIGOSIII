@@ -25,10 +25,10 @@ g++ -O3 NaTorsion.cpp -o NaTorsion -static
 The "-static" flag should be removed on Mac OS, which does not support static
 executable.
 
-After the compilation is finished, compress the ``AMIGOIII/`` folder as a zip
-file, and install the zip file through the
+After the compilation is finished, compress the ``AMIGOIII/`` folder (i.e.,
+this folder) as a zip file, and install the zip file through the
 [PyMOL Plugin Manager](https://pymolwiki.org/index.php/Plugins).
-Alternatively, you can manually move the ``AMIGOIII/`` folder to the
+Alternatively, you can manually move the ``AMIGOIII/`` folder to
 ``pmg_tk/AMIGOSIII`` at your pymol installation path.
 
 ## Reference ##
