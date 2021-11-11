@@ -6,9 +6,9 @@
 #
 #  File:            AMIGOSIII.py
 #  Authors:         Morgan Shine and Chengxin Zhang
-#  Creation Date:   2021-10-28
+#  Creation Date:   2021-11-10
 #
-#  Nucleic Rama Plot
+#  Rama Plot
 #      Calculate the pseudo-torsion angles eta, theta, eta', and theta'  
 #      and determine sugar pucker for selected RNA/DNA in PyMOL
 #      
@@ -819,7 +819,7 @@ cmd.auto_arg[0]['eta_theta_plot'] = cmd.auto_arg[0]['zoom']
 
 def __init_plugin__(self):
     self.menuBar.addcascademenu('Plugin', 'AMIGOS III', 'Plot Tools', label='AMIGOS III Tools')
-    self.menuBar.addmenuitem('AMIGOS III', 'command', 'Launch Nucleic Rama Plot', label='Nucleic Rama Plot',
+    self.menuBar.addmenuitem('AMIGOS III', 'command', 'Launch Rama Plot', label='Rama Plot',
                              command=lambda: ETPlot('(enabled)'))
     self.menuBar.addmenuitem('AMIGOS III', 'command', 'Launch Motif Searching', label='Motif Searching',
                              command=lambda: RNAworm('enabled)'))

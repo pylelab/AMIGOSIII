@@ -5,6 +5,11 @@ nucleic acids
 ## Dependency ##
 AMIGOS III is a plugin to [PyMOL](https://pymol.org/) version 2.5 or later.
 It requires matplotlib and python3.
+* Not all official Windows build of PyMOL by Shrodinger include matplotlib.
+  If AMIGOS III cannot be launched after installation due to lack of
+  matplotlib, you re-install 
+  [Open-Source Pymol on Windows](https://pymolwiki.org/index.php/Windows_Install)
+  where you can install matplotlib.
 
 ## Automated Installation ##
 If you use 64bit Windows, Linux or Mac, download the zip files for your
