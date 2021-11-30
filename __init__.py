@@ -443,6 +443,8 @@ class ETPlot:
 
         #Check for NaTorsion
         NaTorsion = os.path.join(os.path.abspath(os.path.dirname(__file__)), "NaTorsion")
+        if os.name=="nt":
+            NaTorsion+=".exe"
         if os.path.exists(NaTorsion):
             cond = 1
         else:
