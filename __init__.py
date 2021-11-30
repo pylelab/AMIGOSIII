@@ -6,7 +6,7 @@
 #
 #  File:            AMIGOSIII.py
 #  Authors:         Morgan Shine and Chengxin Zhang
-#  Creation Date:   2021-11-15
+#  Creation Date:   2021-11-30
 #
 #  NARama
 #      Calculate the pseudo-torsion angles eta, theta, eta', and theta'  
