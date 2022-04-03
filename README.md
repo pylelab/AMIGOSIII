@@ -71,6 +71,6 @@ folder (i.e., the folder containing this README.md file) to
 ``pmg_tk/AMIGOSIII`` at your pymol installation path.
 
 ## Reference ##
-Morgan Shine, Chengxin Zhang, Anna Marie Pyle (2021)
+Morgan Shine, Chengxin Zhang, Anna Marie Pyle (2022)
 "AMIGOS III: Pseudo-torsion angle visualization and motif-based structure
-comparison of nucleic acids"
+comparison of nucleic acids" Bioinformatics.
