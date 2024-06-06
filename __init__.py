@@ -41,13 +41,6 @@
 
 #Import lines
 
-from __future__ import division
-from __future__ import generators
-from __future__ import print_function
-
-import sys
-import math
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -56,16 +49,8 @@ import pickle
 import time
 import os
 
-if int(sys.version[0])<=2:
-    from Tkinter import *
-    from Tkinter import Tk
-    from Tkinter import messagebox
-    from Tkinter import filedialog
-else:
-    from tkinter import *
-    from tkinter import Tk
-    from tkinter import messagebox
-    from tkinter import filedialog
+from pymol.Qt import QtCore, QtWidgets
+Qt = QtCore.Qt
 
 ###############################################################################
 
@@ -80,13 +65,16 @@ class ETPlot:
 
         #Define directory to save all output files
         print("Please select a folder to save all output files.")
-        application_window = Tk()
-        output_location = filedialog.askdirectory(parent=application_window, initialdir=os.getcwd(), title="Please select a folder to save all output files.")
+        output_location = QtWidgets.QFileDialog.getExistingDirectory(
+            None, "Please select a folder to save all output files.", os.getcwd())
             
         #Eta vs theta plot and csv file 
-        et_plot_answer = messagebox.askyesno("Question", "Would you like to plot eta vs theta?")
-        
-        if et_plot_answer == True:
+        msg_box = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, "Question",
+                                        "Would you like to plot eta vs theta?",
+                                        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        et_plot_answer = msg_box.exec()
+
+        if et_plot_answer == QtWidgets.QMessageBox.Yes:
             #Generate eta vs theta plot in matplotlib
             ydata = []
             zdata = []
@@ -94,7 +82,7 @@ class ETPlot:
             
             et_colors_space = {'et_colors': []}
             et_color_tuples = []
-            
+
             for (model, index), (eta, theta, sugar) in ETPlot.get_etatheta(self, sel).items():
                 cmd.iterate("sel and model " + str(model) + " and index " + str(index), "et_colors.append(color)", space=et_colors_space)
                 ydata.append(eta)
@@ -138,8 +126,8 @@ class ETPlot:
             except OSError:
                 print("File could not be saved because output folder is not writable.")
                 print("Please select a new output folder.")
-                application_window = Tk()
-                output_location = filedialog.askdirectory(parent=application_window, initialdir=os.getcwd(), title="Please select a folder to save all output files.")
+                output_location = QtWidgets.QFileDialog.getExistingDirectory(
+                    None, "Please select a folder to save all output files.", os.getcwd())
                 plt.savefig(output_location + "/eta_theta_plot.png")
             
             #Save csv file with sequence, eta, theta, and sugar pucker
@@ -170,9 +158,12 @@ class ETPlot:
             df.to_csv(output_location + "/eta_theta.csv")
         
         #Eta' vs Theta' plot and csv file
-        et_p_plot_answer = messagebox.askyesno("Question", "Would you like to plot eta' vs theta'?")
-        
-        if et_p_plot_answer == True:
+        et_p_plot_msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, "Question",
+                                              "Would you like to plot eta' vs theta'?",
+                                              QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        et_p_plot_answer = et_p_plot_msg.exec()
+
+        if et_p_plot_answer == QtWidgets.QMessageBox.Yes:
             #Generate eta' vs theta' plot in matplotlib
             ydata_p = []
             zdata_p = []
@@ -224,8 +215,8 @@ class ETPlot:
             except OSError:
                 print("File could not be saved because output folder is not writable.")
                 print("Please select a new output folder.")
-                application_window = Tk()
-                output_location = filedialog.askdirectory(parent=application_window, initialdir=os.getcwd(), title="Please select a folder to save all output files.")
+                output_location = QtWidgets.QFileDialog.getExistingDirectory(
+                    None, "Please select a folder to save all output files.", os.getcwd())
                 plt.savefig(output_location + "/eta_theta_prime_plot.png")
                 
             #Save csv file with sequence, eta', theta', and sugar pucker
@@ -256,9 +247,12 @@ class ETPlot:
             df_p.to_csv(output_location + "/eta_theta_prime.csv")
             
         #Generate nucleic acid worm plot
-        worm_plot_answer = messagebox.askyesno("Question", "Would you like to generate a nucleic acid worm plot?")
+        worm_plot_msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, "Question",
+                                              "Would you like to generate a nucleic acid worm plot?",
+                                              QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        worm_plot_answer = worm_plot_msg.exec()
 
-        if worm_plot_answer == True:
+        if worm_plot_answer == QtWidgets.QMessageBox.Yes:
             xdata_space = {'xdata': []}
             ydata = []
             zdata = []
@@ -316,8 +310,8 @@ class ETPlot:
                 except OSError:
                     print("File could not be saved because output folder is not writable.")
                     print("Please select a new output folder.")
-                    application_window = Tk()
-                    output_location = filedialog.askdirectory(parent=application_window, initialdir=os.getcwd(), title="Please select a folder to save all output files.")
+                    output_location = QtWidgets.QFileDialog.getExistingDirectory(
+                        None, "Please select a folder to save all output files.", os.getcwd())
                     plt.savefig(output_location + "/nucleic_worm_plot.png")
                     
             except Exception as error:
@@ -511,13 +505,16 @@ class RNAworm:
         
     def start(self):
         #Generate a nucleic acid worm database if needed 
-        database_answer = messagebox.askyesno("Question", "Would you like to generate a nucleic acid worm database?")
+        database_msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, "Question",
+                                             "Would you like to generate a nucleic acid worm database?",
+                                             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        database_answer = database_msg.exec()
         
-        if database_answer:
+        if database_answer == QtWidgets.QMessageBox.Yes:
             #Select input directory for generate_database
             print("Please select the directory you would like to use to generate a nucleic acid worm database.")
-            application_window = Tk()
-            directory = filedialog.askdirectory(parent=application_window, initialdir=os.getcwd(), title="Please select the directory you would like to use to generate a nucleic acid worm database.")
+            directory = QtWidgets.QFileDialog.getExistingDirectory(
+                None, "Please select the directory you would like to use to generate a nucleic acid worm database.", os.getcwd())
         
             start1 = time.time()
             RNAworm.generate_database(self, directory)
@@ -525,19 +522,25 @@ class RNAworm:
             print(f"Time to generate nucleic acid worm database: {end1-start1} s")
             
         #Perform a nucleic acid worm search
-        worm_search_answer = messagebox.askyesno("Question", "Would you like to perform a nucleic acid worm search?")
+        worm_search_msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, "Question",
+                                                "Would you like to perform a nucleic acid worm search?",
+                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        worm_search_answer = worm_search_msg.exec()        
         
-        if worm_search_answer:
+        if worm_search_answer == QtWidgets.QMessageBox.Yes:
             #Select nucleic acid worm database directory
             print("Please select the directory containing the nucleic acid worm database.")
-            application_window = Tk()
-            nucleic_worm_database = filedialog.askdirectory(parent=application_window, initialdir=os.getcwd(), title="Please select the directory containing the nucleic acid worm database.")
+            nucleic_worm_database = QtWidgets.QFileDialog.getExistingDirectory(
+                None, "Please select the directory containing the nucleic acid worm database.", os.getcwd())
             
-            probe_format = messagebox.askquestion("Question", "Is the nucleic acid probe worm a PyMOL object (select no) or a local file (select yes)?")
-            if probe_format:
+            probe_format_msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Question, "Question",
+                                                     "Is the nucleic acid probe worm a PyMOL object (select no) or a local file (select yes)?",
+                                                     QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            probe_format = probe_format_msg.exec()
+            if probe_format == QtWidgets.QMessageBox.Yes:
                 print("Please select the nucleic acid probe worm.")
-                application_window = Tk()
-                probe = filedialog.askopenfilename(parent=application_window, title="Please select the nucleic acid probe worm.")
+                probe = QtWidgets.QFileDialog.getOpenFileName(
+                    None, "Please select the nucleic acid probe worm.", os.getcwd())
             else:
                 #Write probe csv file for PyMOL selection 
                 cmd.select("sele extend 6") #required to calculate eta and theta for first and last residues in original selection
